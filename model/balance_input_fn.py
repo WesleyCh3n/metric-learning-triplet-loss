@@ -45,7 +45,7 @@ def _choice_function(n_class:int, n_per_class:int, n_class_per_batch:int):
             for _ in range(n_per_class):
                 yield label
 
-def _parse_function(filename, l_dict:dict, size: list):
+def _parse_function(filename, l_dict:dict, size: list, is_training: bool):
     name = pathlib.Path(filename.numpy().decode('utf-8')).parent.name
     label = l_dict[name]
 
@@ -53,11 +53,16 @@ def _parse_function(filename, l_dict:dict, size: list):
     image = tf.image.decode_jpeg(image_string, channels=3,
                                  dct_method='INTEGER_ACCURATE')
     image = tf.cast(image, tf.float32)
-    image = ((image / 255.0)-0.5)*2.0
+    # brightness augmentation
+    if is_training:
+        delta = tf.random.uniform([], 0.3, 1.0)
+    else:
+        delta = 1.0
+    image = ((image * delta / 255.0)-0.5)*2.0
     image = tf.image.resize(image, size)
     return image, label
 
-def dataset_pipeline(folder, params):
+def dataset_pipeline(folder, params, is_training):
     r_path = pathlib.Path(folder)
     img_dirs = list(r_path.iterdir())
     total_num = len(list(r_path.glob('*/*')))
@@ -79,10 +84,11 @@ def dataset_pipeline(folder, params):
 
     parse_fn = lambda x: new_py_function(
         func=_parse_function,
-        inp=[x,l_dict,params["size"]],
+        inp=[x,l_dict,params["size"], is_training],
         Tout={'img':tf.float32, 'label':tf.int32}
     )
     dataset = (tf.data.experimental.choose_from_datasets(datasets, choice_ds)
+        .shuffle(total_num)
         .map(parse_fn)
         .batch(params["n_class_per_batch"]*params["n_per_class"])
         .repeat(params['n_epochs'])

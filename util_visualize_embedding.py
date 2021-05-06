@@ -3,30 +3,17 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  #supress tensorflow info except error
-gpuNum = 0
-
 import sys
 import pathlib
-from tqdm import tqdm
 import numpy as np
 import tensorflow as tf
-gpus = tf.config.experimental.list_physical_devices('GPU')
-if gpus:
-  try:
-    tf.config.experimental.set_visible_devices(gpus[gpuNum], 'GPU')
-    tf.config.experimental.set_memory_growth(gpus[gpuNum], True)
-    logical_gpus = tf.config.experimental.list_logical_devices('GPU')
-    print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
-  except RuntimeError as e:
-    print(e)
-
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Model
+from tqdm import tqdm
 from tensorboard.plugins import projector
-from model.input_fn_none_batch import none_batch_dataset_pipeline
+from model.parse_params import parse_params
 from model.triplet_model_fn import model_fn
-import importlib.util
+from model.input_fn_none_batch import none_batch_dataset_pipeline
 
+gpuNum = 1
 
 def gen_ds(test_ds_path, params, total_class=19):
     test_ds, _ = none_batch_dataset_pipeline(test_ds_path, params)
@@ -42,15 +29,11 @@ def gen_ds(test_ds_path, params, total_class=19):
 
 
 if __name__ == "__main__":
+    dataset = '/home/ubuntu/dataset/CowFace19/test/'
+
     # read params path
     params_path = sys.argv[1]
-
-    # load parameters
-    spec = importlib.util.spec_from_file_location(
-        "params", os.path.join(params_path, 'params.py'))
-    loader = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(loader)
-    params = loader.params
+    params = parse_params(params_path)
 
     # logdir
     logdir = pathlib.Path(params_path).joinpath('feats')
@@ -61,17 +44,13 @@ if __name__ == "__main__":
     model.load_weights(os.path.join(params_path, 'model'))
 
     # create embeddings, metadata
-    vecs, metas = gen_ds("/home/ubuntu/dataset/DsDt_test300/", params)
-    np.savetxt(str(logdir.joinpath("vec300.tsv")),
+    with tf.device(f'/device:GPU:{gpuNum}'):
+        vecs, metas = gen_ds(dataset, params)
+    np.savetxt(str(logdir.joinpath("vec.tsv")),
             vecs, fmt='%.8f', delimiter='\t')
-    np.savetxt(str(logdir.joinpath("meta300.tsv")),
+    np.savetxt(str(logdir.joinpath("meta.tsv")),
             metas, fmt='%i', delimiter='\t')
 
-    vecs, metas = gen_ds("/home/ubuntu/dataset/test_100/", params)
-    np.savetxt(str(logdir.joinpath("vec100.tsv")),
-            vecs, fmt='%.8f', delimiter='\t')
-    np.savetxt(str(logdir.joinpath("meta100.tsv")),
-            metas, fmt='%i', delimiter='\t')
 
     # TODO: Not working
     #  embedding_var = tf.Variable(vecs, name='300_cow_face')
