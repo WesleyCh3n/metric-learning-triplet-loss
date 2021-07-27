@@ -19,7 +19,9 @@ if __name__ == "__main__":
     new_vecs = np.empty((0,128),np.float)
     unique, cnt = np.unique(metas, return_counts=True)
     cnt = np.cumsum(cnt)
+    print(cnt)
     cnt = np.insert(cnt, 0, 0)
+    print(cnt)
     for i in range(len(cnt)-1):
         #  print(metas[cnt[i]:cnt[i+1]])
         feat = np.mean(vecs[cnt[i]:cnt[i+1]], axis=0)

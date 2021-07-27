@@ -1,3 +1,4 @@
 exp/*
 predict/
 .ipynb_checkpoints
+*.pyc

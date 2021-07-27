@@ -13,7 +13,7 @@ from model.parse_params import parse_params
 from model.triplet_model_fn import model_fn
 from model.input_fn_none_batch import none_batch_dataset_pipeline
 
-gpuNum = 1
+gpuNum = 3
 
 def gen_ds(test_ds_path, params, total_class=19):
     test_ds, _ = none_batch_dataset_pipeline(test_ds_path, params)
@@ -29,14 +29,15 @@ def gen_ds(test_ds_path, params, total_class=19):
 
 
 if __name__ == "__main__":
-    dataset = '/home/ubuntu/dataset/CowFace19/test/'
+    dataset = '/home/ubuntu/dataset/CowFaceAdd-test'
+    output_dir_name = 'test-200'
 
     # read params path
     params_path = sys.argv[1]
     params = parse_params(params_path)
 
     # logdir
-    logdir = pathlib.Path(params_path).joinpath('feats')
+    logdir = pathlib.Path(params_path).joinpath(output_dir_name)
     logdir.mkdir(parents=True, exist_ok=True)
 
     # build model
@@ -45,7 +46,7 @@ if __name__ == "__main__":
 
     # create embeddings, metadata
     with tf.device(f'/device:GPU:{gpuNum}'):
-        vecs, metas = gen_ds(dataset, params)
+        vecs, metas = gen_ds(dataset, params, params['n_class'])
     np.savetxt(str(logdir.joinpath("vec.tsv")),
             vecs, fmt='%.8f', delimiter='\t')
     np.savetxt(str(logdir.joinpath("meta.tsv")),

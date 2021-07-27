@@ -3,7 +3,7 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  #supress tensorflow info except error
-gpuNum = 1
+gpuNum = 0
 
 import math
 import datetime
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     params = loader.params
 
     # dataset
-    train_ds, train_count = dataset_pipeline(params['train_ds'], params)
+    train_ds, train_count = dataset_pipeline(params['train_ds'], params, True)
 
     model = fine_tune_model_fn(params, is_training=True)
     model.load_weights(params['pretrained_weight'])
