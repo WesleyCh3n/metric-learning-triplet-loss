@@ -1,4 +1,5 @@
 exp/*
+!exp/sample_experiment/
 predict/
 .ipynb_checkpoints
 *.pyc
