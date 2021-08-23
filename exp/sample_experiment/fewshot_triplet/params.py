@@ -8,7 +8,7 @@ params = {
     'lr': 0.00001,
     'early_stopping': 100,
 
-    'pretrained_weight': './exp/0503NewDs/baseline_triplet/model',
+    'pretrained_weight': './exp/sample_experiment/baseline_triplet/model',
     'train_ds': '/home/ubuntu/dataset/CowFaceAdd100/',
     'save_every_n_epoch': 1
 }

@@ -8,7 +8,7 @@ params = {
     'lr': 'default',
     'early_stopping': 20,
 
-    'pretrained_weight': './exp/baseline_softmax/model', # path to baseline_softmax
+    'pretrained_weight': './exp/sample_experiment/baseline_softmax/model', # path to baseline_softmax
     'train_ds': '/home/ubuntu/dataset/CowFace19/train/',
     'save_every_n_epoch': 1
 }
