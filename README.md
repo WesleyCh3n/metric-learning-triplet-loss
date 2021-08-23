@@ -1,7 +1,3 @@
----
-tags: FSL, Triplet loss
----
-
 # Few-shot learning (FSL) Experment
 
 [![hackmd-github-sync-badge](https://hackmd.io/ct3mDHTJR2CLHUrys-jv2A/badge)](https://hackmd.io/ct3mDHTJR2CLHUrys-jv2A)
@@ -17,3 +13,6 @@ tags: FSL, Triplet loss
 
 ### Weight Initialization
 
+
+
+###### tags: `FSL`, `Triplet loss`
