@@ -30,7 +30,7 @@ def gen_ds(test_ds_path, params, total_class=19):
 
 if __name__ == "__main__":
     dataset = '/home/ubuntu/dataset/CowFaceAdd-test'
-    output_dir_name = 'test-200'
+    output_dir_name = 'feat'
 
     # read params path
     params_path = sys.argv[1]
