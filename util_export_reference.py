@@ -10,7 +10,7 @@ if __name__ == "__main__":
     params_path = sys.argv[1]
     num = 8
 
-    logdir = pathlib.Path(params_path).joinpath('feats')
+    logdir = pathlib.Path(params_path)
     vecs = np.loadtxt(str(logdir.joinpath("vec.tsv")),
                       delimiter='\t')
     metas = np.loadtxt(str(logdir.joinpath("meta.tsv")),
