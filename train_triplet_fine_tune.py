@@ -3,39 +3,23 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  #supress tensorflow info except error
-
-import math
-import datetime
 import sys
-import time
+import math
+import pathlib
+import datetime
 import tensorflow as tf
-# gpus = tf.config.experimental.list_physical_devices('GPU')
-# if gpus:
-#   try:
-#     tf.config.experimental.set_visible_devices(gpus[gpuNum], 'GPU')
-#     tf.config.experimental.set_memory_growth(gpus[gpuNum], True)
-#     logical_gpus = tf.config.experimental.list_logical_devices('GPU')
-#     print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
-#   except RuntimeError as e:
-#     print(e)
+
 from model.parse_params import parse_params
 from model.balance_input_fn import dataset_pipeline
 from model.triplet_model_fn import fine_tune_model_fn
-import importlib.util
 
 gpuNum = 0
 
-
 if __name__ == "__main__":
     # read params path
-    params_path = sys.argv[1]
-    params = parse_params(params_path)
-    # load parameters
-    #  spec = importlib.util.spec_from_file_location(
-    #      "params", os.path.join(params_path, 'params.py'))
-    #  loader = importlib.util.module_from_spec(spec)
-    #  spec.loader.exec_module(loader)
-    #  params = loader.params
+    path = sys.argv[1]
+    params = parse_params(path)
+    params_path = pathlib.Path(path).parents[0]
 
     with tf.device(f'/device:GPU:{gpuNum}'):
         # dataset

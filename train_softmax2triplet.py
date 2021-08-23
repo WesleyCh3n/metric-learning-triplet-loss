@@ -3,11 +3,12 @@
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  #supress tensorflow info except error
-import math
-import datetime
 import sys
+import math
+import pathlib
+import datetime
 import tensorflow as tf
-#  from tensorflow.keras.models import Model
+
 from model.parse_params import parse_params
 from model.balance_input_fn import dataset_pipeline
 from model.triplet_model_fn import transfer_model_fn
@@ -17,8 +18,9 @@ gpuNum = 1
 
 if __name__ == "__main__":
     # read params path
-    params_path = sys.argv[1]
-    params = parse_params(params_path)
+    path = sys.argv[1]
+    params = parse_params(path)
+    params_path = pathlib.Path(path).parents[0]
 
     with tf.device(f'/device:GPU:{gpuNum}'):
         # dataset

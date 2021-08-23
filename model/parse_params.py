@@ -8,7 +8,7 @@ import os
 def parse_params(path):
     # load parameters
     spec = importlib.util.spec_from_file_location(
-        'params', os.path.join(path, 'params.py'))
+        'params', path)
     loader = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(loader)
     params = loader.params
