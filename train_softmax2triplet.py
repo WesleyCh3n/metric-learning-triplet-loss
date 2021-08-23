@@ -7,8 +7,7 @@ import math
 import datetime
 import sys
 import tensorflow as tf
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Model
+#  from tensorflow.keras.models import Model
 from model.parse_params import parse_params
 from model.balance_input_fn import dataset_pipeline
 from model.triplet_model_fn import transfer_model_fn
