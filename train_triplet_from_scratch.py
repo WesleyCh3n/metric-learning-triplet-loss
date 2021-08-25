@@ -9,8 +9,8 @@ import pathlib
 import datetime
 import tensorflow as tf
 
-from model.balance_input_fn import dataset_pipeline
-from model.triplet_loss import batch_hard_triplet_loss
+from model.parse_params import parse_params
+from model.input_fn import dataset_pipeline_balance_label
 from model.triplet_model_fn import model_fn
 
 gpuNum = 2
@@ -23,7 +23,8 @@ if __name__ == "__main__":
 
     with tf.device(f'/device:GPU:{gpuNum}'):
         # dataset
-        train_ds, train_count = dataset_pipeline(params['train_ds'], params, True)
+        train_ds, train_count = dataset_pipeline_balance_label(
+            params['train_ds'], params, True)
 
         model = model_fn(params, is_training=True)
         model.summary()

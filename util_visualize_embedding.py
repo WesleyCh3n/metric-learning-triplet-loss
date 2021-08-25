@@ -7,16 +7,18 @@ import sys
 import pathlib
 import numpy as np
 import tensorflow as tf
+
 from tqdm import tqdm
 from tensorboard.plugins import projector
 from model.parse_params import parse_params
 from model.triplet_model_fn import model_fn
-from model.input_fn_none_batch import none_batch_dataset_pipeline
+from model.input_fn import dataset_pipeline
 
 gpuNum = 3
 
 def gen_ds(test_ds_path, params, total_class=19):
-    test_ds, _ = none_batch_dataset_pipeline(test_ds_path, params)
+    test_ds, _ = dataset_pipeline(test_ds_path, params,
+                                  is_training=False, batch=False)
     vecs = np.empty((0,128),np.float)
     metas = np.empty((0),np.float)
     for cls in tqdm(range(total_class)):
@@ -29,12 +31,13 @@ def gen_ds(test_ds_path, params, total_class=19):
 
 
 if __name__ == "__main__":
-    dataset = '/home/ubuntu/dataset/CowFaceAdd-test'
+    dataset = '/home/ubuntu/dataset/test'
     output_dir_name = 'feat'
 
     # read params path
-    params_path = sys.argv[1]
-    params = parse_params(params_path)
+    path = sys.argv[1]
+    params = parse_params(path)
+    params_path = pathlib.Path(path).parents[0]
 
     # logdir
     logdir = pathlib.Path(params_path).joinpath(output_dir_name)
