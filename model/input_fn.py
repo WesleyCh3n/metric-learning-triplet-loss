@@ -6,6 +6,29 @@ import tensorflow as tf
 
 
 def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True):
+    """
+    Read and preprocess images then return dataset format and its length.
+
+    Args:
+        folder (str): data directory which should contain sub-directory for
+            each class. Such as:
+            '''
+            .
+            ├── data_dir/
+            │   ├── Class_1/
+            │   ├── Class_2/
+            ...
+            │   └── Class_N/
+
+            '''
+        params (dict): parameters dictionary
+        is_training (bool): if dataset is going to be trained or not
+        batch (bool): return batched dataset or not
+
+    Return:
+        ds (tf.data.Dataset): tensorflow dataset format
+        ds_count (int): dataset length
+    """
     def parse_filename(path):
         ds_root = pathlib.Path(path)
         filenames = list(ds_root.glob('*/*'))
@@ -58,6 +81,29 @@ def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True):
     return ds, ds_counts
 
 def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool):
+    """
+    Read and preprocess images then return dataset format and its length. Also,
+    Balance each class number per batch
+
+    Args:
+        folder (str): data directory which should contain sub-directory for
+            each class. Such as:
+            '''
+            .
+            ├── data_dir/
+            │   ├── Class_1/
+            │   ├── Class_2/
+            ...
+            │   └── Class_N/
+
+            '''
+        params (dict): parameters dictionary
+        is_training (bool): if dataset is going to be trained or not
+
+    Return:
+        dataset (tf.data.Dataset): tensorflow dataset format
+        total_num (int): dataset length
+    """
     #===============================================================================
     # Source: edloper @ GitHub.com
     # (https://github.com/tensorflow/tensorflow/issues/27679#issuecomment-522578000)

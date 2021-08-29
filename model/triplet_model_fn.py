@@ -10,6 +10,15 @@ HND_tracker = tf.keras.metrics.Mean(name="hardest_negative_dist")
 
 
 class CustomModel(tf.keras.Model):
+    """
+    Inherited from `tf.keras.Model`.
+    Custom training step, metrics.
+    self.compiled_loss is triplet loss.
+
+    metrics include {loss,
+                     hardest positive distance (HPD),
+                     hardest negative distance (HND)}
+    """
     def __init__(self, margin=None, **kwargs):
         self.margin = margin
         super(CustomModel, self).__init__(**kwargs)
@@ -43,6 +52,14 @@ class CustomModel(tf.keras.Model):
         return [loss_tracker, HPD_tracker, HND_tracker]
 
 def model_fn(params, is_training=True):
+    """
+    Create feature extractor model with MobileNetV2 + Dense layer (128).
+    Wrap up with CustomModel process.
+
+    Args:
+        params (dict): parameters dictionary
+        is_training (bool): if it is going to be trained or not
+    """
     baseModel = MobileNetV2(
         include_top=False, weights='imagenet',
         input_shape=(224, 224, 3), pooling="avg"
@@ -62,6 +79,15 @@ def model_fn(params, is_training=True):
     return model
 
 def transfer_model_fn(params, is_training=True):
+    """
+    Load MobileNetV2 + Dense layer (n class) weight, replace
+    Dense layer (n class) with Dense layer (128).
+    Wrap up with CustomModel process. Then train with triplet loss.
+
+    Args:
+        params (dict): parameters dictionary
+        is_training (bool): if it is going to be trained or not
+    """
     baseModel = MobileNetV2(
         include_top=False, weights=None,
         input_shape=(224, 224, 3), pooling="avg"
@@ -86,6 +112,15 @@ def transfer_model_fn(params, is_training=True):
     return model
 
 def fine_tune_model_fn(params, is_training=True):
+    """
+    Load MobileNetV2 + Dense layer (128) weight, freeze weight to
+    block_16_depthwise_relu layer, only train last 2 layer
+    Wrap up with CustomModel process. Then train with triplet loss.
+
+    Args:
+        params (dict): parameters dictionary
+        is_training (bool): if it is going to be trained or not
+    """
     base_model = MobileNetV2(
         include_top=False, weights=None,
         input_shape=(224, 224, 3), pooling="avg"

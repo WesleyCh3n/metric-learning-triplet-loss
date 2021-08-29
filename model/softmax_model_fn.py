@@ -9,6 +9,13 @@ train_acc_tracker = tf.keras.metrics.SparseCategoricalAccuracy()
 val_acc_tracker = tf.keras.metrics.SparseCategoricalAccuracy()
 
 class CustomModel(tf.keras.Model):
+    """
+    Inherited from `tf.keras.Model`.
+    Custom training step, test step, metrics.
+    self.compiled_loss is SparseCategoricalCrossentropy.
+
+    metrics include {train loss, val loss, train acc, val acc}
+    """
     def train_step(self, data):
         x, y = data['img'], data['label']
 
@@ -46,6 +53,14 @@ class CustomModel(tf.keras.Model):
                 train_acc_tracker, val_acc_tracker]
 
 def model_fn(params, is_training=True):
+    """
+    Create base model with MobileNetV2 + Dense layer (n class).
+    Wrap up with CustomModel process.
+
+    Args:
+        params (dict): parameters dictionary
+        is_training (bool): if it is going to be trained or not
+    """
     baseModel = MobileNetV2(
         include_top=False, weights='imagenet',
         input_shape=(224, 224, 3), pooling="avg")
