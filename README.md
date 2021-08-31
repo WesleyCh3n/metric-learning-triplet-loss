@@ -39,13 +39,13 @@ In `baseline model training`, we use `Source domain dataset` (
 
 - Start training:
 
-    ```bash=
+    ```bash
     python3 train_softmax.py <path/to/params.py>
     ```
 
 - During training, to visualize loss and accuracy:
 
-    ```bash=
+    ```bash
     tensorboard --logdir <path/to/params.py>
     ```
 
@@ -57,7 +57,7 @@ In `baseline model training`, we use `Source domain dataset` (
 
 - Edit `exp/sample_experiment/baseline_triplet/params.py`
 
-    ```python=
+    ```python
     params = {
         'n_epochs': 100,
         'n_class': 19,  # TODO
@@ -76,13 +76,13 @@ In `baseline model training`, we use `Source domain dataset` (
 
 - During training, to visualize triplet loss, hardest negative distance (*HND*) and hardest positive distance (*HPD*):
 
-    ```bash=
+    ```bash
     tensorboard --logdir <path/to/params.py>
     ```
     
 - Start training:
 
-    ```bash=
+    ```bash
     python3 train_softmax2triplet.py <path/to/params.py>
     ```
     
@@ -94,7 +94,7 @@ In `FSL update training`, we use `Target domain dataset` (
 
 - Edit `exp/sample_experiment/fewshot-triplet/params.py`
 
-    ```python=
+    ```python
     params = {
         'n_epochs': 100,
         'n_class': 23,  # TODO
@@ -113,13 +113,13 @@ In `FSL update training`, we use `Target domain dataset` (
 
 - During training, to visualize triplet loss, hardest negative distance (*HND*) and hardest positive distance (*HPD*):
 
-    ```bash=
+    ```bash
     tensorboard --logdir <path/to/params.py>
     ```
     
 - Start training:
 
-    ```bash=
+    ```bash
     python3 train_triplet_fine_tune.py <path/to/params.py>
     ```
 ###### tags: `FSL`, `Triplet loss`
