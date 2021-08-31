@@ -22,7 +22,7 @@ In `baseline model training`, we use `Source domain dataset` (
 
 - Edit `exp/sample_experiment/baseline_softmax/params.py`
 
-    ```python=
+    ```python
         params = {
         'n_epochs': 50,
         'n_class': 19,  # TODO
