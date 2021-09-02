@@ -11,7 +11,6 @@
 
 ![](https://raw.githubusercontent.com/WesleyCh3n/MobileNetv2-CowFace-Extractor/main/img/flowchart.svg)
 
-
 ## Baseline Model Training
 
 In `baseline model training`, we use `Source domain dataset` (
@@ -46,12 +45,12 @@ In `baseline model training`, we use `Source domain dataset` (
 - During training, to visualize loss and accuracy:
 
     ```bash
-    tensorboard --logdir <path/to/params.py>
+    tensorboard --logdir <path/to/params.py parent>
     ```
 
 
 - After training complete:
-    - Model Checkpoint directory is same as `path/to/params.py`
+    - Model `Checkpoint` directory is same as `path/to/params.py`
 
 ### 2. Baseline Feature Extractor: `Triplet Loss`
 
@@ -78,6 +77,7 @@ In `baseline model training`, we use `Source domain dataset` (
 
     ```bash
     tensorboard --logdir <path/to/params.py>
+    te
     ```
     
 - Start training:
@@ -114,7 +114,7 @@ In `FSL update training`, we use `Target domain dataset` (
 - During training, to visualize triplet loss, hardest negative distance (*HND*) and hardest positive distance (*HPD*):
 
     ```bash
-    tensorboard --logdir <path/to/params.py>
+    tensorboard --logdir <path/to/params.py parent>
     ```
     
 - Start training:
