@@ -11,7 +11,7 @@ import tensorflow as tf
 
 from model.parse_params import parse_params
 from model.input_fn import dataset_pipeline_balance_label
-from model.triplet_model_fn import model_fn
+from model.triplet_model_fn import fine_tune_model_fn
 
 gpuNum = 0
 
