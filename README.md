@@ -76,8 +76,7 @@ In `baseline model training`, we use `Source domain dataset` (
 - During training, to visualize triplet loss, hardest negative distance (*HND*) and hardest positive distance (*HPD*):
 
     ```bash
-    tensorboard --logdir <path/to/params.py>
-    te
+    tensorboard --logdir <path/to/params.py parent>
     ```
     
 - Start training:
