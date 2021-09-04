@@ -9,7 +9,7 @@
 ## Overview
 
 
-![](https://raw.githubusercontent.com/WesleyCh3n/MobileNetv2-CowFace-Extractor/main/img/flowchart.svg)
+![](https://raw.githubusercontent.com/WesleyCh3n/FSL/main/img/flowchart.svg)
 
 ## Baseline Model Training
 
