@@ -16,7 +16,7 @@ from model.input_fn import dataset_pipeline
 
 gpuNum = 3
 
-def gen_ds(test_ds_path, params, total_class=19):
+def gen_ds(test_ds_path, params, total_class):
     test_ds, _ = dataset_pipeline(test_ds_path, params,
                                   is_training=False, batch=False)
     vecs = np.empty((0,128),np.float)
@@ -31,7 +31,7 @@ def gen_ds(test_ds_path, params, total_class=19):
 
 
 if __name__ == "__main__":
-    dataset = '/home/ubuntu/dataset/test'
+    dataset = '/home/ubuntu/dataset/new_class/'
     output_dir_name = 'feat'
 
     # read params path

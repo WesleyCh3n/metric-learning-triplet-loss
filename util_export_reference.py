@@ -7,10 +7,10 @@ import numpy as np
 
 
 if __name__ == "__main__":
-    params_path = sys.argv[1]
-    num = 8
+    num = 8 # floating point precision
 
-    logdir = pathlib.Path(params_path)
+    logdir = pathlib.Path(sys.argv[1])
+
     vecs = np.loadtxt(str(logdir.joinpath("vec.tsv")),
                       delimiter='\t')
     metas = np.loadtxt(str(logdir.joinpath("meta.tsv")),
@@ -19,11 +19,8 @@ if __name__ == "__main__":
     new_vecs = np.empty((0,128),np.float)
     unique, cnt = np.unique(metas, return_counts=True)
     cnt = np.cumsum(cnt)
-    print(cnt)
     cnt = np.insert(cnt, 0, 0)
-    print(cnt)
     for i in range(len(cnt)-1):
-        #  print(metas[cnt[i]:cnt[i+1]])
         feat = np.mean(vecs[cnt[i]:cnt[i+1]], axis=0)
         new_vecs = np.append(new_vecs, [feat], axis=0)
     np.savetxt(str(logdir.joinpath(f"ref.{num}f.tsv")),
