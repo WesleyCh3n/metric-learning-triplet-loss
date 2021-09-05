@@ -1,4 +1,7 @@
-# FSL Util code
+# FSL Util Code
+
+[![hackmd-github-sync-badge](https://hackmd.io/nQElH4AyS3SF9ZijfrdSSA/badge)](https://hackmd.io/nQElH4AyS3SF9ZijfrdSSA)
+
 
 ## `util_convert_format.py`
 
