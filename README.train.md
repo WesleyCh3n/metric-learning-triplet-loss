@@ -5,6 +5,8 @@
 
 ## Overview
 
+In `train_*.py`, it mainly contain the following parts:
+
 - Dataset: `tf.data.Dataset`
 - Model: `tf.keras.models.Model`
     - Model Structure
@@ -22,7 +24,7 @@
 
 ### `./model/input_fn.py`
 
-- **def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True)**
+- **def dataset_pipeline(is_training: bool, batch=True, \*\*params)**
 
     ```python=
     """
@@ -48,7 +50,7 @@
     """
     ```
 
-- **def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool)**
+- **def dataset_pipeline_balance_label(is_training: bool, batch=True, \*\*params)**
 
     ```python=
     """
@@ -91,7 +93,7 @@
     """
     ```
 
-- **def model_fn(is_training=True, **params)**
+- **def model_fn(is_training=True, \*\*params)**
 
     ```python=
     """
@@ -120,7 +122,7 @@
     """
     ```
 
-- **def model_fn(is_training=True, **params)**
+- **def model_fn(is_training=True, \*\*params)**
 
     ```python=
     """
@@ -133,7 +135,7 @@
     """
     ```
 
-- **def transfer_model_fn(is_training=True, **params)**
+- **def transfer_model_fn(is_training=True, \*\*params)**
 
     ```python=
     """
@@ -147,7 +149,7 @@
     """
     ```
 
-- **def fine_tune_model_fn(is_training=True, **params)**
+- **def fine_tune_model_fn(is_training=True, \*\*params)**
 
     ```python=
     """
