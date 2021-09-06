@@ -10,5 +10,6 @@ params = {
 
     'pretrained_weight': './exp/sample_experiment/baseline_triplet/model',
     'train_ds': '/home/ubuntu/dataset/CowFaceAdd100/',
+    'test_ds': '/home/ubuntu/dataset/CowFaceAdd100/',
     'save_every_n_epoch': 1
 }

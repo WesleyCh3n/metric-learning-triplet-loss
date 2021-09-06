@@ -51,7 +51,7 @@ class CustomModel(tf.keras.Model):
     def metrics(self):
         return [loss_tracker, HPD_tracker, HND_tracker]
 
-def model_fn(params, is_training=True):
+def model_fn(is_training=True, **params):
     """
     Create feature extractor model with MobileNetV2 + Dense layer (128).
     Wrap up with CustomModel process.
@@ -78,7 +78,7 @@ def model_fn(params, is_training=True):
         model.trainable = False
     return model
 
-def transfer_model_fn(params, is_training=True):
+def transfer_model_fn(is_training=True, **params):
     """
     Load MobileNetV2 + Dense layer (n class) weight, replace
     Dense layer (n class) with Dense layer (128).
@@ -111,7 +111,7 @@ def transfer_model_fn(params, is_training=True):
         model.trainable = False
     return model
 
-def fine_tune_model_fn(params, is_training=True):
+def fine_tune_model_fn(is_training=True, **params):
     """
     Load MobileNetV2 + Dense layer (128) weight, freeze weight to
     block_16_depthwise_relu layer, only train last 2 layer

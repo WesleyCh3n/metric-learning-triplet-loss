@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  #supress tensorflow info except error
 import sys
@@ -20,11 +23,11 @@ if __name__ == "__main__":
 
     with tf.device(f'/device:GPU:{gpuNum}'):
         # create dataset
-        train_ds, train_count = dataset_pipeline(params['train_ds'], params, True)
-        val_ds, val_count = dataset_pipeline(params['test_ds'], params, False)
+        train_ds, train_count = dataset_pipeline(True, **params)
+        val_ds, val_count = dataset_pipeline(False, **params)
 
         # build model
-        model = model_fn(params, is_training=True)
+        model = model_fn(True, **params)
         model.summary()
 
         log_dir = os.path.join(params_path, "logs/",

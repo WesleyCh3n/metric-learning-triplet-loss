@@ -16,12 +16,11 @@ from model.input_fn import dataset_pipeline
 
 gpuNum = 3
 
-def gen_ds(test_ds_path, params, total_class):
-    test_ds, _ = dataset_pipeline(test_ds_path, params,
-                                  is_training=False, batch=False)
+def gen_ds(**params):
+    test_ds, _ = dataset_pipeline(is_training=False, batch=False, **params)
     vecs = np.empty((0,128),np.float)
     metas = np.empty((0),np.float)
-    for cls in tqdm(range(total_class)):
+    for cls in tqdm(range(params['n_class'])):
         ds = test_ds.filter(lambda data: data['label'] == cls).batch(300)
         for data in ds:
             feat = model.predict(data['img'])
@@ -31,7 +30,6 @@ def gen_ds(test_ds_path, params, total_class):
 
 
 if __name__ == "__main__":
-    dataset = '/home/ubuntu/dataset/new_class/'
     output_dir_name = 'feat'
 
     # read params path
@@ -44,12 +42,12 @@ if __name__ == "__main__":
     logdir.mkdir(parents=True, exist_ok=True)
 
     # build model
-    model = model_fn(params, is_training=False)
+    model = model_fn(False, **params)
     model.load_weights(os.path.join(params_path, 'model'))
 
     # create embeddings, metadata
     with tf.device(f'/device:GPU:{gpuNum}'):
-        vecs, metas = gen_ds(dataset, params, params['n_class'])
+        vecs, metas = gen_ds(**params)
     np.savetxt(str(logdir.joinpath("vec.tsv")),
             vecs, fmt='%.8f', delimiter='\t')
     np.savetxt(str(logdir.joinpath("meta.tsv")),

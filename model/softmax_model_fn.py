@@ -52,7 +52,7 @@ class CustomModel(tf.keras.Model):
         return [train_loss_tracker, val_loss_tracker,
                 train_acc_tracker, val_acc_tracker]
 
-def model_fn(params, is_training=True):
+def model_fn(is_training=True, **params):
     """
     Create base model with MobileNetV2 + Dense layer (n class).
     Wrap up with CustomModel process.
@@ -74,4 +74,3 @@ def model_fn(params, is_training=True):
     if not is_training:
         model.trainable = False
     return model
-

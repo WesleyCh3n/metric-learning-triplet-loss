@@ -29,7 +29,7 @@ Please type the number (1/2): """
     with tf.device(f'/device:GPU:{gpuNum}'):
         print("Loading model...")
         str_list = []
-        model = model_fn(params, is_training=False)
+        model = model_fn(False, **params)
         model.load_weights(os.path.join(params_path, 'model'))
         model.summary(line_length=50,
                       print_fn=lambda x: str_list.append(x))

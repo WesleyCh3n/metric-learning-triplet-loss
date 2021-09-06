@@ -15,7 +15,6 @@ from model.triplet_model_fn import transfer_model_fn
 
 gpuNum = 1
 
-
 if __name__ == "__main__":
     # read params path
     path = sys.argv[1]
@@ -24,9 +23,9 @@ if __name__ == "__main__":
 
     with tf.device(f'/device:GPU:{gpuNum}'):
         # dataset
-        train_ds, train_count = dataset_pipeline_balance_label(params['train_ds'], params, True)
+        train_ds, train_count = dataset_pipeline_balance_label(True, **params)
 
-        model = transfer_model_fn(params, is_training=True)
+        model = transfer_model_fn(True, **params)
         model.summary()
 
         log_dir = os.path.join(params_path, "logs/",

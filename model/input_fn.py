@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 
 
-def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True):
+def dataset_pipeline(is_training: bool, batch=True, **params):
     """
     Read and preprocess images then return dataset format and its length.
 
@@ -57,8 +57,7 @@ def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True):
         data['img'] = image
         return data
 
-    def generate_dataset(f, l, params, is_training):
-        print(f'batch: {batch}')
+    def generate_dataset(f, l, is_training, **params):
         parse_fn = lambda d: _parse_function(d, params["size"], is_training)
         if batch:
             dataset = (
@@ -76,11 +75,13 @@ def dataset_pipeline(folder: str, params: dict, is_training: bool, batch=True):
             )
         return dataset
 
+    folder = params['train_ds'] if is_training else params['test_ds']
     ds_filenames, ds_labels, ds_counts = parse_filename(folder)
-    ds = generate_dataset(ds_filenames, ds_labels, params, is_training)
+    ds = generate_dataset(ds_filenames, ds_labels, is_training, **params)
     return ds, ds_counts
 
-def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool):
+#  def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool):
+def dataset_pipeline_balance_label(is_training: bool, batch=True, **params):
     """
     Read and preprocess images then return dataset format and its length. Also,
     Balance each class number per batch
@@ -160,6 +161,7 @@ def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool)
         image = tf.image.resize(image, size)
         return image, label
 
+    folder = params['train_ds']
     r_path = pathlib.Path(folder)
     img_dirs = list(r_path.iterdir())
     total_num = len(list(r_path.glob('*/*')))
