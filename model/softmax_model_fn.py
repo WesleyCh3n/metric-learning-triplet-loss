@@ -58,8 +58,8 @@ def model_fn(is_training=True, **params):
     Wrap up with CustomModel process.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     baseModel = MobileNetV2(
         include_top=False, weights='imagenet',

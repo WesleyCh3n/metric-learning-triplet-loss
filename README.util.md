@@ -9,7 +9,7 @@
 Convert `checkpoint` to `h5` or `tflite`
 
 ```bash
-python3 util_convert_format.py <path/to/param.py>
+python3 util_convert_format.py <path/to/params.py>
 ```
 
 ## `util_export_embedding.py`
@@ -17,14 +17,14 @@ python3 util_convert_format.py <path/to/param.py>
 Export data to embeddings.
 
 ```bash
-python3 util_export_embedding.py <path/to/param.py>
+python3 util_export_embedding.py <path/to/params.py>
 ```
 
-edit line 34, 35 `dataset` path and `output_dir_name`.
+This will export params['test_ds'] into embeddings.
 
 ## `util_export_reference.py`
 
-Average embeddings each class as supported set.
+Average embeddings with each class as supported set.
 
 ```bash
 python3 util_export_reference.py <path/to/output_dir_name/>

@@ -27,26 +27,24 @@
     ```python=
     """
     Read and preprocess images then return dataset format and its length.
+    Data directory which should contain sub-directory for each class. Such as:
+        '''
+        .
+        ├── data_dir/
+        │   ├── Class_1/
+        │   ├── Class_2/
+        ...
+        │   └── Class_N/
+        '''
 
     Args:
-        folder (str): data directory which should contain sub-directory for
-            each class. Such as:
-            '''
-            .
-            ├── data_dir/
-            │   ├── Class_1/
-            │   ├── Class_2/
-            ...
-            │   └── Class_N/
-
-            '''
-        params (dict): parameters dictionary
         is_training (bool): if dataset is going to be trained or not
         batch (bool): return batched dataset or not
+        params: keyword arguments (parameters dictionary)
 
     Return:
-        dataset (tf.data.Dataset): tensorflow dataset format
-        total_num (int): dataset length
+        ds (tf.data.Dataset): tensorflow dataset format
+        ds_count (int): dataset length
     """
     ```
 
@@ -55,22 +53,21 @@
     ```python=
     """
     Read and preprocess images then return dataset format and its length. Also,
-    Balance each class number per batch
+    Balance each class number per batch.
+    Data directory which should contain sub-directory for each class. Such as:
+        '''
+        .
+        ├── data_dir/
+        │   ├── Class_1/
+        │   ├── Class_2/
+        ...
+        │   └── Class_N/
+        '''
 
     Args:
-        folder (str): data directory which should contain sub-directory for
-            each class. Such as:
-            '''
-            .
-            ├── data_dir/
-            │   ├── Class_1/
-            │   ├── Class_2/
-            ...
-            │   └── Class_N/
-
-            '''
-        params (dict): parameters dictionary
         is_training (bool): if dataset is going to be trained or not
+        batch (bool): return batched dataset or not
+        params: keyword arguments (parameters dictionary)
 
     Return:
         dataset (tf.data.Dataset): tensorflow dataset format
@@ -94,7 +91,7 @@
     """
     ```
 
-- **def model_fn(params, is_training)**
+- **def model_fn(is_training=True, **params)**
 
     ```python=
     """
@@ -102,8 +99,8 @@
     Wrap up with CustomModel process.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     ```
 
@@ -123,7 +120,7 @@
     """
     ```
 
-- **def model_fn(params, is_training)**
+- **def model_fn(is_training=True, **params)**
 
     ```python=
     """
@@ -131,12 +128,12 @@
     Wrap up with CustomModel process.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     ```
 
-- **def transfer_model_fn(params, is_training)**
+- **def transfer_model_fn(is_training=True, **params)**
 
     ```python=
     """
@@ -145,12 +142,12 @@
     Wrap up with CustomModel process. Then train with triplet loss.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     ```
 
-- **def fine_tune_model_fn(params, is_training)**
+- **def fine_tune_model_fn(is_training=True, **params)**
 
     ```python=
     """
@@ -159,8 +156,8 @@
     Wrap up with CustomModel process. Then train with triplet loss.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
 
     """
     ```

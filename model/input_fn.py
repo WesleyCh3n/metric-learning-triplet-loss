@@ -8,22 +8,20 @@ import tensorflow as tf
 def dataset_pipeline(is_training: bool, batch=True, **params):
     """
     Read and preprocess images then return dataset format and its length.
+    Data directory which should contain sub-directory for each class. Such as:
+        '''
+        .
+        ├── data_dir/
+        │   ├── Class_1/
+        │   ├── Class_2/
+        ...
+        │   └── Class_N/
+        '''
 
     Args:
-        folder (str): data directory which should contain sub-directory for
-            each class. Such as:
-            '''
-            .
-            ├── data_dir/
-            │   ├── Class_1/
-            │   ├── Class_2/
-            ...
-            │   └── Class_N/
-
-            '''
-        params (dict): parameters dictionary
         is_training (bool): if dataset is going to be trained or not
         batch (bool): return batched dataset or not
+        params: keyword arguments (parameters dictionary)
 
     Return:
         ds (tf.data.Dataset): tensorflow dataset format
@@ -80,26 +78,24 @@ def dataset_pipeline(is_training: bool, batch=True, **params):
     ds = generate_dataset(ds_filenames, ds_labels, is_training, **params)
     return ds, ds_counts
 
-#  def dataset_pipeline_balance_label(folder: str, params: dict, is_training: bool):
 def dataset_pipeline_balance_label(is_training: bool, batch=True, **params):
     """
     Read and preprocess images then return dataset format and its length. Also,
-    Balance each class number per batch
+    Balance each class number per batch.
+    Data directory which should contain sub-directory for each class. Such as:
+        '''
+        .
+        ├── data_dir/
+        │   ├── Class_1/
+        │   ├── Class_2/
+        ...
+        │   └── Class_N/
+        '''
 
     Args:
-        folder (str): data directory which should contain sub-directory for
-            each class. Such as:
-            '''
-            .
-            ├── data_dir/
-            │   ├── Class_1/
-            │   ├── Class_2/
-            ...
-            │   └── Class_N/
-
-            '''
-        params (dict): parameters dictionary
         is_training (bool): if dataset is going to be trained or not
+        batch (bool): return batched dataset or not
+        params: keyword arguments (parameters dictionary)
 
     Return:
         dataset (tf.data.Dataset): tensorflow dataset format

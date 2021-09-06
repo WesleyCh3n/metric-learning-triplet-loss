@@ -57,8 +57,8 @@ def model_fn(is_training=True, **params):
     Wrap up with CustomModel process.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     baseModel = MobileNetV2(
         include_top=False, weights='imagenet',
@@ -85,8 +85,8 @@ def transfer_model_fn(is_training=True, **params):
     Wrap up with CustomModel process. Then train with triplet loss.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     baseModel = MobileNetV2(
         include_top=False, weights=None,
@@ -118,8 +118,8 @@ def fine_tune_model_fn(is_training=True, **params):
     Wrap up with CustomModel process. Then train with triplet loss.
 
     Args:
-        params (dict): parameters dictionary
         is_training (bool): if it is going to be trained or not
+        params: keyword arguments (parameters dictionary)
     """
     base_model = MobileNetV2(
         include_top=False, weights=None,
