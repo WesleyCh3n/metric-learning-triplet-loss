@@ -20,7 +20,7 @@ Export data to embeddings.
 python3 util_export_embedding.py <path/to/params.py>
 ```
 
-This will export params['test_ds'] into embeddings.
+This will export `params['test_ds']` into embeddings.
 
 ## `util_export_reference.py`
 
