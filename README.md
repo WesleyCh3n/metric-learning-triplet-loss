@@ -72,6 +72,7 @@ In `baseline model training`, we use `Source domain dataset` (
         'save_every_n_epoch': 1
     }
     ```
+    ⚠️ *Caution: `pretrained_weight` should left `model` in the last in order to read `checkpoint` properly*
 
 - During training, to visualize triplet loss, hardest negative distance (*HND*) and hardest positive distance (*HPD*):
 
