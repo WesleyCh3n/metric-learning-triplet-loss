@@ -1,8 +1,8 @@
 # Few-shot learning (FSL) Experment
 
 [![WesleyCh3n - FSL](https://img.shields.io/badge/WesleyCh3n-FSL-2ea44f?logo=github)](https://github.com/WesleyCh3n/FSL)
-![Python - >=3.6.9](https://img.shields.io/badge/Python->=3.6.9-informational?logo=Python) 
-![Tensorflow - 2.2.0](https://img.shields.io/badge/Tensorflow-2.2.0-informational?logo=Tensorflow) 
+![Python - >=3.6.9](https://img.shields.io/badge/Python->=3.6.9-informational?logo=Python)
+![Tensorflow - 2.2.0](https://img.shields.io/badge/Tensorflow-2.2.0-informational?logo=Tensorflow)
 [![hackmd-github-sync-badge](https://hackmd.io/ct3mDHTJR2CLHUrys-jv2A/badge)](https://hackmd.io/ct3mDHTJR2CLHUrys-jv2A)
 
 
@@ -78,13 +78,13 @@ In `baseline model training`, we use `Source domain dataset` (
     ```bash
     tensorboard --logdir <path/to/params.py parent>
     ```
-    
+
 - Start training:
 
     ```bash
     python3 train_softmax2triplet.py <path/to/params.py>
     ```
-    
+
 ## FSL Update Training
 
 In `FSL update training`, we use `Target domain dataset` (
@@ -106,6 +106,7 @@ In `FSL update training`, we use `Target domain dataset` (
 
         'pretrained_weight': '/path/to/baseline_triplet/model',  # TODO
         'train_ds': '/path/to/train_ds',  # TODO
+        'test_ds': '/path/to/train_ds',  # For export embeddings, could be same as train_ds
         'save_every_n_epoch': 1
     }
     ```
@@ -115,7 +116,7 @@ In `FSL update training`, we use `Target domain dataset` (
     ```bash
     tensorboard --logdir <path/to/params.py parent>
     ```
-    
+
 - Start training:
 
     ```bash
