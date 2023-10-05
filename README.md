@@ -1,4 +1,4 @@
-# Few-shot learning (FSL) Experment
+# Metric learning Experment
 
 [![WesleyCh3n - FSL](https://img.shields.io/badge/WesleyCh3n-FSL-2ea44f?logo=github)](https://github.com/WesleyCh3n/FSL)
 ![Python - >=3.6.9](https://img.shields.io/badge/Python->=3.6.9-informational?logo=Python)
